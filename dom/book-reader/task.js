@@ -12,6 +12,7 @@ fonts.forEach(font => {
         
         const size = font.getAttribute('data-size');
         font.classList.add('font-size_active');
+        
         book.classList.remove('book_fs-big', 'book_fs-small');
         
         if(size === "small"){
