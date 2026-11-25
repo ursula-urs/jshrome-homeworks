@@ -1,38 +1,28 @@
-const element = document.getElementById('poll__title');
+const containerTextQueshens = document.getElementById('poll__title');
 let xhr = new XMLHttpRequest();
-xhr.open('GET', 'http://localhost:3333/poll');
+xhr.open('GET', 'https://students.netoservices.ru/nestjs-backend/poll');
 xhr.responseType = 'json';
 
 xhr.addEventListener('readystatechange', () => {
     if(xhr.readyState === xhr.DONE && xhr.status === 200 ){
         const otvet = xhr.response;
+        containerTextQueshens.textContent = otvet.data.title;
+        const containerButton = document.getElementById("poll__answers");
+        let answers = otvet.data.answers;
 
+        for(let answer of answers){
+          const button = document.createElement('button');
+          button.classList.add('poll__answer');
+          button.textContent = answer;
+          containerButton.append(button);
 
-        element.insertAdjacentElement('beforeEnd', `
-            <div class="poll__title" id="poll__title">
-            <!--   Как вы относитесь к собакам? -->
-          </div>
-          <div class="poll__answers poll__answers_active" id="poll__answers">
-            <!-- <button class="poll__answer">
-              Хорошо
-            </button>
-            <button class="poll__answer">
-              Отлично
-            </button>
-            <button class="poll__answer">
-              Я люблю собак
-            </button>
-            <button class="poll__answer">
-              Кто тут?
-            </button> -->
-          </div>
-        </div>
-      </div>
+          button.addEventListener('click', ()=>{
+            alert("Спасибо, ваш голос засчитан!");
+          })
+          
+        }
 
-
-
-            `)
-    }
+      }
 })
 
 
